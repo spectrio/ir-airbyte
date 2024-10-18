@@ -1,0 +1,1 @@
+airbyte-ci connectors --name=destination-clickhouse-s3-sqs build --architecture=linux/amd64

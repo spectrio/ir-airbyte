@@ -1,0 +1,85 @@
+{
+  "documentationUrl": "https://docs.airbyte.com/integrations/destinations/clickhouse-s3-sqs",
+  "supported_destination_sync_modes": [
+    "append"
+  ],
+  "supportsIncremental": true,
+  "connectionSpecification": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Destination Clickhouse S3 Sqs",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "s3_bucket",
+      "s3_key",
+      "s3_secret",
+      "sqs_url",
+      "sqs_key",
+      "sqs_secret",
+      "host",
+      "port",
+      "username",
+      "password",
+      "database",
+      "fields_json",
+      "fields_mapping_json"
+    ],
+    "properties": {
+      "s3_bucket": {
+        "type": "string",
+        "description": "The S3 bucket name where the files are stored."
+      },
+      "s3_key": {
+        "type": "string",
+        "description": "The AWS S3 access key."
+      },
+      "s3_secret": {
+        "type": "string",
+        "description": "The AWS S3 secret key.",
+        "airbyte_secret": true  
+      },
+      "sqs_url": {
+        "type": "string",
+        "description": "The URL of the SQS queue."
+      },
+      "sqs_key": {
+        "type": "string",
+        "description": "The AWS SQS access key."
+      },
+      "sqs_secret": {
+        "type": "string",
+        "description": "The AWS SQS secret key.",
+        "airbyte_secret": true  
+      },
+      "host": {
+        "type": "string",
+        "description": "The ClickHouse server hostname."
+      },
+      "port": {
+        "type": "integer",
+        "description": "The port to connect to the ClickHouse database."
+      },
+      "username": {
+        "type": "string",
+        "description": "The ClickHouse username."
+      },
+      "password": {
+        "type": "string",
+        "description": "The password for the ClickHouse user.",
+        "airbyte_secret": true  
+      },
+      "database": {
+        "type": "string",
+        "description": "The ClickHouse database name."
+      },
+      "fields_json": {
+        "type": "string",
+        "description": "A JSON string mapping the fields of the incoming records."
+      },
+      "fields_mapping_json": {
+        "type": "string",
+        "description": "A JSON string containing the mapping rules for fields from the source to the destination."
+      }
+    }
+  }
+}
