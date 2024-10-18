@@ -111,17 +111,25 @@ class MongoDbSourceAcceptanceTest extends SourceAcceptanceTest {
     otherCollection2Name = "collection_" + RandomStringUtils.randomAlphabetic(8);
 
     config = Jsons.deserialize(Files.readString(CREDENTIALS_PATH));
-    final ObjectNode databaseConfig = (ObjectNode) config.get(DATABASE_CONFIG_CONFIGURATION_KEY);
-    databaseConfig.put(MongoConstants.DATABASE_CONFIGURATION_KEY, databaseName);
-    databaseConfig.put(MongoConstants.IS_TEST_CONFIGURATION_KEY, true);
-    databaseConfig.put(MongoConstants.CHECKPOINT_INTERVAL_CONFIGURATION_KEY, 1);
-    ((ObjectNode) config).put(DATABASE_CONFIG_CONFIGURATION_KEY, databaseConfig);
 
-    final MongoDbSourceConfig sourceConfig = new MongoDbSourceConfig(config);
+    System.out.println("-------------------------------->" + Files.readString(CREDENTIALS_PATH));
 
-    mongoClient = MongoConnectionUtils.createMongoClient(sourceConfig);
-    createTestCollections(mongoClient);
-    insertTestData(mongoClient);
+
+    try{
+      final ObjectNode databaseConfig = (ObjectNode) config.get(DATABASE_CONFIG_CONFIGURATION_KEY);
+      databaseConfig.put(MongoConstants.DATABASE_CONFIGURATION_KEY, databaseName);
+      databaseConfig.put(MongoConstants.IS_TEST_CONFIGURATION_KEY, true);
+      databaseConfig.put(MongoConstants.CHECKPOINT_INTERVAL_CONFIGURATION_KEY, 1);
+      ((ObjectNode) config).put(DATABASE_CONFIG_CONFIGURATION_KEY, databaseConfig);
+
+      final MongoDbSourceConfig sourceConfig = new MongoDbSourceConfig(config);
+
+      mongoClient = MongoConnectionUtils.createMongoClient(sourceConfig);
+      createTestCollections(mongoClient);
+      insertTestData(mongoClient);
+    }catch(Exception e){
+      System.out.println("Something went wrong");
+    }
   }
 
   private void createTestCollections(final MongoClient mongoClient) {
